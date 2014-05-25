@@ -20,7 +20,7 @@
     :builds {
       :main {
         :source-paths ["src/cljs"]
-        :compiler {:output-to "resources/public/js/main.js"
+        :compiler {:output-to "resources/public/js/main.min.js"
                    :optimizations :whitespace
                    :pretty-print true}
         :jar true}}}
