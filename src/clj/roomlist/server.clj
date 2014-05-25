@@ -31,10 +31,10 @@
 (defn -main [& args]
   (log/info "creating db")
   (let [db (push/create-db "datomic:mem://roomlist")]
-    (log/info "starting server")
-    (server/run-server app {:port 3000})
     (log/info "starting router")
     (push/ws-message-router (:db-connection db))
     (log/info "starting change monitor")
-    (push/change-monitor (:change-queue db)))
+    (future (push/change-monitor (:change-queue db))))
+  (log/info "starting server")
+  (server/run-server app {:port 3000})
   (log/info "server started. http://localhost:3000"))
