@@ -18,7 +18,7 @@
 (def ws-connection (sente/make-channel-socket! {:user-id-fn get-user-id}))
 (let [{:keys [ch-recv send-fn ajax-post-fn ajax-get-or-ws-handshake-fn
               connected-uids]}
-       ws-connection]
+      ws-connection]
   (def ring-ws-post ajax-post-fn)
   (def ring-ws-handoff ajax-get-or-ws-handshake-fn)
   (def receive-channel ch-recv)
@@ -51,8 +51,8 @@
     (log/info "monitor loop")
     (let [report (.take change-queue)
           changes (into {} (read-changes report))]
-        (log/info changes)
-        (log/info @connected-uids)
-        (doseq [uid (:any @connected-uids)]
-          (channel-send! uid [:room/join changes]))))
+      (log/info changes)
+      (log/info @connected-uids)
+      (doseq [uid (:any @connected-uids)]
+        (channel-send! uid [:room/join changes]))))
   (log/info "monitoring complete"))

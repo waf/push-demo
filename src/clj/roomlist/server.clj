@@ -19,20 +19,20 @@
   (fn [{:keys [request-method uri] :as req}]
     (let [resp (handler req)]
       (log/info (name request-method) (:status resp)
-            (if-let [qs (:query-string req)]
-              (str uri "?" qs) uri))
+                (if-let [qs (:query-string req)]
+                  (str uri "?" qs) uri))
       resp)))
 
 (def app 
   (-> app-routes
-    (handler/site)
-    (wrap-request-logging)))
+      (handler/site)
+      (wrap-request-logging)))
 
 (defn -main [& args]
   (log/info "creating db")
   (let [db (push/create-db "datomic:mem://roomlist")]
-  (log/info "starting server")
-  (server/run-server app {:port 3000})
+    (log/info "starting server")
+    (server/run-server app {:port 3000})
     (log/info "starting router")
     (push/ws-message-router (:db-connection db))
     (log/info "starting change monitor")
