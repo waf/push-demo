@@ -16,6 +16,7 @@
   :plugins [[lein-cljsbuild "1.0.3"]
             [lein-ring "0.8.10"]]
   :source-paths ["src/clj"]
+  :hooks [leiningen.cljsbuild]
   :cljsbuild { 
     :builds {
       :main {
